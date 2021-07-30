@@ -28,13 +28,26 @@ public class CountryData {
 
     @Type(type = "jsonb")
     @Column(name = "name", columnDefinition = "jsonb")
-    private Set<CommonLocalization> name;
+    private Set<CommonLocalization> name = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "countries")
     Set<Characteristic> characteristics = new HashSet<>();
 
+    public CountryData(Long id, String identifier, Set<CommonLocalization> name) {
+        this.id = id;
+        this.identifier = identifier;
+        this.name = name;
+    }
+
+    public static CountryData from(Country country) {
+        return new CountryData(
+                country.getId(),
+                country.getIdentifier(),
+                CommonLocalization.localizationMapToSet(country.getName())
+        );
+    }
 
     public Country fromThis() {
         return new Country(

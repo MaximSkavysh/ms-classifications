@@ -1,4 +1,4 @@
-package com.lobster.controller.category;
+package com.lobster.presenter.rest.controller.category;
 
 import com.lobster.dto.category.CategoryDto;
 import org.springframework.http.HttpStatus;

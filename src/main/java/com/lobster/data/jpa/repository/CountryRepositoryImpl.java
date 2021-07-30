@@ -29,4 +29,10 @@ public class CountryRepositoryImpl implements CountryRepository {
     public Optional<Country> getById(Long id) {
         return Optional.empty();
     }
+
+    @Override
+    public Country persist(Country country) {
+        final CountryData customerData = CountryData.from(country);
+        return repository.save(customerData).fromThis();
+    }
 }

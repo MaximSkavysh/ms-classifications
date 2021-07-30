@@ -10,10 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class CommonLocalization extends Localization{
+public class CommonLocalization extends Localization {
     @Size(max = 100)
     private String value;
 
@@ -42,5 +43,10 @@ public class CommonLocalization extends Localization{
                 : Map.of();
     }
 
-
+    public static Set<CommonLocalization> localizationMapToSet(Map<String, String> names){
+        return names.entrySet()
+                .stream()
+                .map(stringStringEntry -> new CommonLocalization(stringStringEntry.getKey(), stringStringEntry.getValue()))
+                .collect(Collectors.toSet());
+    }
 }

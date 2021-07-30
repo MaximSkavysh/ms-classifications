@@ -14,4 +14,8 @@ public class Country {
     private Long id;
     private @NotBlank String identifier;
     private Map<String, String> name;
+
+    public static Country newInstance(Long id, String identifier, Map<String, String> name) {
+        return new Country(id, identifier, name);
+    }
 }
