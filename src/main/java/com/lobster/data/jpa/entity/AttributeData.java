@@ -15,9 +15,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "attributes")
 @Table(name = "attributes")
-public class Attribute {
+public class AttributeData {
     @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,6 @@ public class Attribute {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "attributes")
-    Set<Characteristic> characteristics = new HashSet<>();
+            mappedBy = "attributeData")
+    Set<CharacteristicData> characteristicData = new HashSet<>();
 }

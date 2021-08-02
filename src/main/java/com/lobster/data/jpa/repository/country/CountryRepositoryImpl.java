@@ -1,4 +1,4 @@
-package com.lobster.data.jpa.repository;
+package com.lobster.data.jpa.repository.country;
 
 import com.lobster.core.domain.Country;
 import com.lobster.core.usecase.country.CountryRepository;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CountryRepositoryImpl implements CountryRepository {
 
-    private final JpaCountryRepository repository;
+    private final CountryJpaRepository repository;
 
     @Override
     public List<Country> getAll() {
@@ -33,7 +33,7 @@ public class CountryRepositoryImpl implements CountryRepository {
 
     @Override
     public Country persist(Country country) {
-        final CountryData customerData = CountryData.from(country);
-        return repository.save(customerData).fromThis();
+        final CountryData countryData = CountryData.from(country);
+        return repository.save(countryData).fromThis();
     }
 }

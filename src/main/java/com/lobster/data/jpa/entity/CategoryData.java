@@ -1,5 +1,6 @@
 package com.lobster.data.jpa.entity;
 
+import com.lobster.core.domain.Category;
 import com.lobster.data.jpa.entity.localization.CommonLocalization;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.EqualsAndHashCode;
@@ -16,10 +17,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "categories")
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 @Table(name = "categories", indexes = {@Index(name = "IDENTIFIER", columnList = "identifier")})
-public class Category extends Audit {
+public class CategoryData extends Audit {
 
     @EqualsAndHashCode.Exclude
     @Id
@@ -39,8 +40,27 @@ public class Category extends Audit {
     private boolean usedForTemplate;
 
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Characteristic> characteristics = new HashSet<>();
+    @OneToMany(mappedBy = "categoryData", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<CharacteristicData> characteristicData = new HashSet<>();
+
+    public CategoryData(Category category) {
+        this.id = category.getId();
+        this.identifier = category.getIdentifier();
+        this.name = CommonLocalization.localizationMapToSet(category.getName());
+        this.usedForTemplate = category.isUsedForTemplate();
+        this.characteristicData = new HashSet<>();
+    }
+
+    public static CategoryData from(Category category) {
+        return new CategoryData(category);
+    }
 
 
+    public Category fromThis() {
+        return new Category(id,
+                identifier,
+                CommonLocalization.localizationsToMap(name, CommonLocalization::getValue),
+                usedForTemplate,
+                new HashSet<>());
+    }
 }

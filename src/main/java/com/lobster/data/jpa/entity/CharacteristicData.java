@@ -15,9 +15,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "characteristics")
 @Table(name = "characteristics")
-public class Characteristic extends Audit {
+public class CharacteristicData extends Audit {
 
     @EqualsAndHashCode.Exclude
     @Id
@@ -43,18 +43,18 @@ public class Characteristic extends Audit {
             name = "characteristic_attributes",
             joinColumns = @JoinColumn(name = "characteristic_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"))
-    private Set<Attribute> attributes = new HashSet<>();
+    private Set<AttributeData> attributeData = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "characteristic_countries",
             joinColumns = @JoinColumn(name = "characteristic_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
-    private Set<CountryData> countries = new HashSet<>();
+    private Set<CountryData> countryData = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryData categoryData;
 
 
 }

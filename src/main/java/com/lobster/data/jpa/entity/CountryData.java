@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "countries")
 @Table(name = "countries")
 public class CountryData {
     @EqualsAndHashCode.Exclude
@@ -32,10 +32,10 @@ public class CountryData {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "countries")
-    Set<Characteristic> characteristics = new HashSet<>();
+            mappedBy = "countryData")
+    Set<CharacteristicData> characteristicData = new HashSet<>();
 
-    public CountryData(Long id, String identifier, Set<CommonLocalization> name) {
+    private CountryData(Long id, String identifier, Set<CommonLocalization> name) {
         this.id = id;
         this.identifier = identifier;
         this.name = name;
