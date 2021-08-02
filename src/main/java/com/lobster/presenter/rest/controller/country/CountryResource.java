@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 public interface CountryResource {
 
     @GetMapping
-    CompletableFuture<List<CountryResponse>> getAllProducts();
+    CompletableFuture<ResponseDto<List<CountryResponse>>> getAllCountries();
 
     @PostMapping
     CompletableFuture<ResponseDto<CountryResponse>> createCountry(@RequestBody CountryRequest countryRequest);
