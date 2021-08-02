@@ -1,31 +1,28 @@
 package com.lobster.core.usecase.country;
 
 import com.lobster.core.domain.Country;
+import com.lobster.core.exception.NotFoundException;
 import com.lobster.core.usecase.UseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-import java.util.Map;
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
-public class CreateCountryUseCase implements UseCase<CreateCountryUseCase.InputValues, CreateCountryUseCase.OutputValues> {
+public class GetCountryUseCase implements UseCase<GetCountryUseCase.InputValues, GetCountryUseCase.OutputValues> {
     private final CountryRepository repository;
 
     @Override
     public OutputValues execute(InputValues input) {
-        Country country = Country.newInstance(
-                input.getId(),
-                input.getIdentifier(),
-                input.getName()
-        );
-        return new OutputValues(repository.persist(country));
+        Optional<Country> country = repository.getById(input.id);
+        return new OutputValues(country.orElseThrow(() -> new NotFoundException("ll")));
     }
+
 
     @Value
     public static class InputValues implements UseCase.InputValues {
         Long id;
-        String identifier;
-        Map<String, String> name;
     }
 
     @Value

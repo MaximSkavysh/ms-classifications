@@ -12,9 +12,12 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("api/classification/country")
 public interface CountryResource {
 
-    @GetMapping
+    @GetMapping("/all")
     CompletableFuture<ResponseDto<List<CountryResponse>>> getAllCountries();
 
     @PostMapping
     CompletableFuture<ResponseDto<CountryResponse>> createCountry(@RequestBody CountryRequest countryRequest);
+
+    @GetMapping("/{id}")
+    CompletableFuture<ResponseDto<CountryResponse>> getCountry(@PathVariable Long id);
 }

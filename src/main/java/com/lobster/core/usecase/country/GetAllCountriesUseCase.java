@@ -8,7 +8,7 @@ import lombok.Value;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class GetAllCountriesUseCase extends UseCase<GetAllCountriesUseCase.InputValues, GetAllCountriesUseCase.OutputValues> {
+public class GetAllCountriesUseCase implements UseCase<GetAllCountriesUseCase.InputValues, GetAllCountriesUseCase.OutputValues> {
 
     private final CountryRepository repository;
 
