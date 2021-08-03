@@ -1,5 +1,7 @@
 package com.lobster.presenter.config;
 
+import com.lobster.core.usecase.category.CategoryRepository;
+import com.lobster.core.usecase.category.CreateCategoryUseCase;
 import com.lobster.core.usecase.country.CountryRepository;
 import com.lobster.core.usecase.country.CreateCountryUseCase;
 import com.lobster.core.usecase.country.GetAllCountriesUseCase;
@@ -23,5 +25,10 @@ public class Module {
     @Bean
     public GetCountryUseCase getCountryUseCase(CountryRepository repository) {
         return new GetCountryUseCase(repository);
+    }
+
+    @Bean
+    public CreateCategoryUseCase createCategoryUseCase(CategoryRepository repository) {
+        return new CreateCategoryUseCase(repository);
     }
 }

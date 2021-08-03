@@ -9,11 +9,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Audit {
 

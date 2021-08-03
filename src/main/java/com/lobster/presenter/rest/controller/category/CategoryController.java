@@ -1,24 +1,28 @@
 package com.lobster.presenter.rest.controller.category;
 
-import com.lobster.dto.category.CategoryDto;
+import com.lobster.core.usecase.UseCaseExecutor;
+import com.lobster.core.usecase.category.CreateCategoryUseCase;
+import com.lobster.dto.ResponseDto;
+import com.lobster.handler.ResponseHandler;
+import com.lobster.presenter.rest.entities.CategoryRequest;
+import com.lobster.presenter.rest.entities.CategoryResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Component;
 
+import java.util.concurrent.CompletableFuture;
 
-@RestController
-@RequestMapping(value = "/api/classification/category")
-@Validated
-public class CategoryController {
+@Component
+@RequiredArgsConstructor
+public class CategoryController implements CategoryResource {
+    private final UseCaseExecutor useCaseExecutor;
+    private final CreateCategoryUseCase createCategoryUseCase;
 
-    @GetMapping("/hello")
-    public ResponseEntity<CategoryDto> hello() {
-        return new ResponseEntity<>(new CategoryDto(), HttpStatus.OK);
-    }
-
-    @PostMapping
-    public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto){
-        return new ResponseEntity<>(categoryDto, HttpStatus.CREATED);
+    @Override
+    public CompletableFuture<ResponseDto<CategoryResponse>> createCategory(CategoryRequest categoryRequest) {
+        return useCaseExecutor.execute(createCategoryUseCase, CreateCategoryInputMapper.map(categoryRequest),
+                outputValues -> ResponseHandler.execute(() ->
+                        CategoryResponse.from(outputValues.getCategory()), HttpStatus.CREATED)
+        );
     }
 }
