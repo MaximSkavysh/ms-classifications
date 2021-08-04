@@ -1,5 +1,6 @@
 package com.lobster.core.usecase.country;
 
+import com.lobster.constants.Constants;
 import com.lobster.core.domain.Country;
 import com.lobster.core.exception.NotFoundException;
 import com.lobster.core.usecase.UseCase;
@@ -16,7 +17,7 @@ public class GetCountryUseCase implements UseCase<GetCountryUseCase.InputValues,
     @Override
     public OutputValues execute(InputValues input) {
         Optional<Country> country = repository.getById(input.id);
-        return new OutputValues(country.orElseThrow(() -> new NotFoundException("ll")));
+        return new OutputValues(country.orElseThrow(() -> new NotFoundException(Constants.ErrorCode.NOT_FOUND.toString())));
     }
 
 

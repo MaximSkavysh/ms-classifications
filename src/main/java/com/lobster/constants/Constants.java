@@ -16,4 +16,8 @@ public interface Constants {
         private final int length;
     }
 
+    enum ErrorCode{
+        NOT_FOUND
+    }
+
 }
