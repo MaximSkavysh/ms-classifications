@@ -1,5 +1,6 @@
 package com.lobster.data.jpa.entity;
 
+import com.lobster.core.domain.Characteristic;
 import com.lobster.data.jpa.entity.localization.CommonLocalization;
 import com.lobster.enums.CharacteristicType;
 import lombok.EqualsAndHashCode;
@@ -56,5 +57,22 @@ public class CharacteristicData extends Audit {
     @JoinColumn(name = "category_id")
     private CategoryData categoryData;
 
+    public CharacteristicData(Characteristic characteristic) {
+        this.id = characteristic.getId();
+        this.identifier = characteristic.getIdentifier();
+        this.name = CommonLocalization.localizationMapToSet(characteristic.getName());
+        this.type = characteristic.getCharacteristicType();
+    }
 
+
+    public static CharacteristicData from(Characteristic characteristic) {
+        return new CharacteristicData(characteristic);
+    }
+
+    public Characteristic fromThis() {
+        return new Characteristic(id,
+                identifier,
+                CommonLocalization.localizationsToMap(name, CommonLocalization::getValue),
+                type);
+    }
 }

@@ -2,6 +2,8 @@ package com.lobster.presenter.config;
 
 import com.lobster.core.usecase.category.CategoryRepository;
 import com.lobster.core.usecase.category.CreateCategoryUseCase;
+import com.lobster.core.usecase.characteristic.CharacteristicRepository;
+import com.lobster.core.usecase.characteristic.CreateCharacteristicUseCase;
 import com.lobster.core.usecase.country.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,5 +34,10 @@ public class Module {
     @Bean
     public UpdateCountryUseCase updateCountryUseCase(CountryRepository repository) {
         return new UpdateCountryUseCase(repository);
+    }
+
+    @Bean
+    public CreateCharacteristicUseCase createCharacteristicUseCase(CharacteristicRepository repository) {
+        return new CreateCharacteristicUseCase(repository);
     }
 }

@@ -12,20 +12,10 @@ import java.util.List;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler({ConstraintViolationException.class, MethodArgumentNotValidException.class, RuntimeException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ResponseDto<String> handleCustomExceptions(Exception ex) {
-        CustomErrorResponse errors = new CustomErrorResponse();
-        errors.setTimestamp(LocalDateTime.now());
-        errors.setErrors(List.of(ex.getMessage()));
-        return new ResponseDto<>(errors, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler({ConstraintViolationException.class, MethodArgumentNotValidException.class})
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseDto<String> handleException(ConstraintViolationException ex) {
+    public ResponseDto<String> handleException(Exception ex) {
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setTimestamp(LocalDateTime.now());
         errors.setErrors(List.of(ex.getMessage()));
