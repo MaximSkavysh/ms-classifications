@@ -17,7 +17,8 @@ public interface Constants {
     }
 
     enum ErrorCode{
-        NOT_FOUND
+        NOT_FOUND,
+        ALREADY_USED,
     }
 
 }

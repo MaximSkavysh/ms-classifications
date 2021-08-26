@@ -36,4 +36,9 @@ public class CountryRepositoryImpl implements CountryRepository {
         final CountryData countryData = CountryData.from(country);
         return repository.save(countryData).fromThis();
     }
+
+    @Override
+    public boolean isExistIdentifier(String identifier) {
+        return repository.existsByIdentifier(identifier);
+    }
 }

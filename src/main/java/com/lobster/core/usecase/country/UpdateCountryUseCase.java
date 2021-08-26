@@ -2,6 +2,7 @@ package com.lobster.core.usecase.country;
 
 import com.lobster.constants.Constants;
 import com.lobster.core.domain.Country;
+import com.lobster.core.exception.AlreadyUsedException;
 import com.lobster.core.exception.NotFoundException;
 import com.lobster.core.usecase.UseCase;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,9 @@ public class UpdateCountryUseCase implements UseCase<UpdateCountryUseCase.InputV
 
     @Override
     public OutputValues execute(InputValues input) {
+        if (repository.isExistIdentifier(input.getIdentifier())) {
+            throw new AlreadyUsedException(Constants.ErrorCode.ALREADY_USED.toString());
+        }
         return this.repository
                 .getById(input.id)
                 .map(country -> updateStatus(country, input))
