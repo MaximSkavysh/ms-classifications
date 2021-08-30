@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface CountryRepository extends BaseRepository {
     List<Country> getAll();
 
-    Optional<Country> getById(Long id);
+    Optional<Country> findById(Long id);
 
     Country persist(Country country);
 

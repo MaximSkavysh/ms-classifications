@@ -31,7 +31,6 @@ public class CategoryData extends Audit {
     private String identifier;
 
     @EqualsAndHashCode.Exclude
-
     @Type(type = "jsonb")
     @Column(name = "name", columnDefinition = "jsonb")
     private Set<CommonLocalization> name;
@@ -40,6 +39,7 @@ public class CategoryData extends Audit {
     private boolean usedForTemplate;
 
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "categoryData", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     Set<CharacteristicData> characteristicData = new HashSet<>();
 

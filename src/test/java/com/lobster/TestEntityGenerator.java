@@ -5,13 +5,14 @@ import com.lobster.core.domain.Country;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class TestEntityGenerator {
     private static final Faker faker = new Faker();
-
+    private static final List<String> languages = List.of("ru", "en", "de", "it");
 
     private static <T> List<T> randomItemsOf(Supplier<T> generator) {
         return IntStream.rangeClosed(0, randomNumberBetweenFiveAndTen())
@@ -35,8 +36,13 @@ public final class TestEntityGenerator {
         return new Country(
                 randomId(),
                 faker.name().name(),
-                Map.of("ru", "rus")
+                languages.stream()
+                        .collect(Collectors.toMap(Function.identity(), s -> getName()))
         );
+    }
+
+    private static String getName() {
+        return faker.funnyName().name();
     }
 
     public static List<Country> randomCountries() {

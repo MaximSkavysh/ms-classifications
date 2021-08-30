@@ -2,6 +2,7 @@ package com.lobster.presenter.config;
 
 import com.lobster.core.usecase.category.CategoryRepository;
 import com.lobster.core.usecase.category.CreateCategoryUseCase;
+import com.lobster.core.usecase.category.GetCategoryUseCase;
 import com.lobster.core.usecase.characteristic.CharacteristicRepository;
 import com.lobster.core.usecase.characteristic.CreateCharacteristicUseCase;
 import com.lobster.core.usecase.country.*;
@@ -39,5 +40,10 @@ public class Module {
     @Bean
     public CreateCharacteristicUseCase createCharacteristicUseCase(CharacteristicRepository repository) {
         return new CreateCharacteristicUseCase(repository);
+    }
+
+    @Bean
+    public GetCategoryUseCase getCategoryUseCase(CategoryRepository repository) {
+        return new GetCategoryUseCase(repository);
     }
 }

@@ -26,7 +26,7 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     @Override
-    public Optional<Country> getById(Long id) {
+    public Optional<Country> findById(Long id) {
         Optional<CountryData> countryData = repository.findById(id);
         return countryData.map(CountryData::fromThis);
     }

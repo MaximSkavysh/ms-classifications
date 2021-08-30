@@ -31,6 +31,7 @@ public class CharacteristicData extends Audit {
     @Column(name = "uid")
     private Long uid;
 
+    @EqualsAndHashCode.Exclude
     @Type(type = "jsonb")
     @Column(name = "name", columnDefinition = "jsonb")
     private Set<CommonLocalization> name = new HashSet<>();
@@ -39,6 +40,7 @@ public class CharacteristicData extends Audit {
     @Enumerated(EnumType.STRING)
     private CharacteristicType type;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "characteristic_attributes",
@@ -46,6 +48,7 @@ public class CharacteristicData extends Audit {
             inverseJoinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"))
     private Set<AttributeData> attributeData = new HashSet<>();
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "characteristic_countries",
@@ -53,6 +56,7 @@ public class CharacteristicData extends Audit {
             inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
     private Set<CountryData> countryData = new HashSet<>();
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryData categoryData;

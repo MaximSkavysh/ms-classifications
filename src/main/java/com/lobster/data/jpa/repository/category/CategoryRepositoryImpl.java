@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -30,6 +31,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public Category persist(Category category) {
         final CategoryData categoryData = CategoryData.from(category);
         return repository.save(categoryData).fromThis();
+    }
+
+    @Override
+    public Optional<Category> findById(Long id) {
+        Optional<CategoryData> categoryData = repository.findById(id);
+        return categoryData.map(CategoryData::fromThis);
     }
 
     @Override

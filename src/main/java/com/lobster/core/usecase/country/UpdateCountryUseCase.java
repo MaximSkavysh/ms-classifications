@@ -21,7 +21,7 @@ public class UpdateCountryUseCase implements UseCase<UpdateCountryUseCase.InputV
             throw new AlreadyUsedException(Constants.ErrorCode.ALREADY_USED.toString());
         }
         return this.repository
-                .getById(input.id)
+                .findById(input.id)
                 .map(country -> updateStatus(country, input))
                 .map(this::persistAndReturn)
                 .orElseThrow(() -> new NotFoundException(Constants.ErrorCode.NOT_FOUND.toString()));
